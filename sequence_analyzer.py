@@ -1,3 +1,5 @@
+from advanced_tools import find_restriction_sites, print_restriction_sites
+
 def gc_content(sequence):
     """Calculate GC content of DNA sequence"""
     sequence = sequence.upper()
@@ -250,40 +252,52 @@ def test_real_genes():
         # Print detailed results
         print_detailed_orfs(orfs)
         print("-" * 50)
-# ===== MAIN EXECUTION =====
 
-def main():
-    """Main function to run all tests and demonstrations"""
-    print("🚀 BIOINFORMATICS ORF FINDER - STARTING ANALYSIS")
-    print("=" * 60)
+def test_integrated_analysis():
+    """Test combined ORF finding and restriction mapping"""
+    print("\n" + "="*60)
+    print("INTEGRATED ANALYSIS: ORF FINDING + RESTRICTION MAPPING")
+    print("="*60)
     
-    # Test basic DNA analysis
-    dna = "ATCGATCGATCG"
-    print(f"Basic DNA Analysis:")
-    print(f"Sequence: {dna}")
-    print(f"GC Content: {gc_content(dna):.2f}%")
-    print(f"Reverse Complement: {reverse_complement(dna)}")
-    print(f"Valid DNA: {validate_dna_sequence(dna)}")
-    print()
+    # Test with a gene that has both ORFs and restriction sites
+    test_gene = "ATGGAATTCGCCGGATCCATGAAATGA"  # Contains ORF and restriction sites
     
-    # Test ORF finder
-    test_orf_finder()
+    print(f"Test Sequence: {test_gene}")
+    print(f"Length: {len(test_gene)} bp")
+    print(f"GC Content: {gc_content(test_gene):.2f}%")
     
-    # Test with real genes and protein translation
-    test_real_genes()
+    # ORF Analysis
+    print("\n--- ORF ANALYSIS ---")
+    orfs = find_orfs(test_gene, min_orf_length=1)
+    print_orfs(orfs)
     
-    print("\n" + "=" * 60)
-    print("🎉 BIOINFORMATICS ANALYSIS COMPLETE!")
-    print("=" * 60)
-    print("\nYour bioinformatics toolkit now includes:")
-    print("✅ DNA sequence validation")
-    print("✅ GC content calculation") 
-    print("✅ Reverse complement generation")
-    print("✅ 6-reading frame analysis")
-    print("✅ ORF (Open Reading Frame) detection")
-    print("✅ Protein translation using genetic code")
-    print("✅ Real gene sequence analysis")
+    # Restriction Analysis
+    print("--- RESTRICTION ANALYSIS ---")
+    restriction_sites = find_restriction_sites(test_gene)
+    print_restriction_sites(restriction_sites, test_gene)
+    
+    # Combined insights
+    if orfs and restriction_sites:
+        print("--- MOLECULAR CLONING INSIGHTS ---")
+        print("This sequence contains both protein-coding regions and")
+        print("restriction sites useful for genetic engineering.")
+from advanced_tools import find_restriction_sites, print_restriction_sites
 
-# This line actually RUNS your program
-if __name__ == "__main__":
-    main()
+print("🧪 TESTING RESTRICTION MAPPER DIRECTLY")
+print("=" * 50)
+
+# Test sequence with known restriction sites
+test_seq = "GAATTCGGATCCAAGCTT"  # EcoRI, BamHI, HindIII
+
+print(f"Sequence: {test_seq}")
+print(f"Length: {len(test_seq)} bp")
+
+# Call restriction functions directly
+sites = find_restriction_sites(test_seq)
+print(f"Raw result: {sites}")
+
+if sites:
+    print("\n📊 RESTRICTION SITES:")
+    print_restriction_sites(sites, test_seq)
+else:
+    print("❌ No restriction sites found")
