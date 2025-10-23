@@ -1,3 +1,4 @@
+from alignment_tools import simple_alignment, print_alignment, calculate_identity
 from advanced_tools import find_restriction_sites, print_restriction_sites
 
 def gc_content(sequence):
@@ -276,28 +277,34 @@ def test_integrated_analysis():
     restriction_sites = find_restriction_sites(test_gene)
     print_restriction_sites(restriction_sites, test_gene)
     
-    # Combined insights
-    if orfs and restriction_sites:
-        print("--- MOLECULAR CLONING INSIGHTS ---")
-        print("This sequence contains both protein-coding regions and")
-        print("restriction sites useful for genetic engineering.")
-from advanced_tools import find_restriction_sites, print_restriction_sites
+ def main():
+    print("🚀 BIOINFORMATICS ORF FINDER - STARTING ANALYSIS")
+    print("=" * 60)
+    
+    # Test basic DNA
+    dna = "ATCGATCGATCG"
+    print(f"DNA: {dna}")
+    print(f"GC Content: {gc_content(dna):.1f}%")
+    print()
+    
+    # Test ORF finder
+    test_orf_finder()
+    print()
+    
+    # Test restriction
+    test_seq = "GAATTCGGATCC"
+    print(f"RESTRICTION TEST: {test_seq}")
+    sites = find_restriction_sites(test_seq)
+    if sites:
+        print("✅ SITES FOUND")
+    print()
+    
+    # Test real genes
+    test_real_genes()
+    
+    print("🎉 DONE!")
 
-print("🧪 TESTING RESTRICTION MAPPER DIRECTLY")
-print("=" * 50)
-
-# Test sequence with known restriction sites
-test_seq = "GAATTCGGATCCAAGCTT"  # EcoRI, BamHI, HindIII
-
-print(f"Sequence: {test_seq}")
-print(f"Length: {len(test_seq)} bp")
-
-# Call restriction functions directly
-sites = find_restriction_sites(test_seq)
-print(f"Raw result: {sites}")
-
-if sites:
-    print("\n📊 RESTRICTION SITES:")
-    print_restriction_sites(sites, test_seq)
-else:
-    print("❌ No restriction sites found")
+# ===== ADD THESE 3 LINES =====
+# Run the main function
+if __name__ == "__main__":
+    main()
